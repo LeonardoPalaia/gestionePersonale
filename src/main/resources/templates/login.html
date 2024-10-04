@@ -1,15 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
+<html>
 <body>
-    <h1>Login Page</h1>
-    <form method="POST" action="">
-        <input type="text" placeholder="Inserisci matricola">
-        <input type="password" placeholder="Inserisci password">
-        <button type="submit">Login</button>
-    </form>
+<form action="#" th:action="@{/login}" th:object="${personale}" method="post">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{nome}" /></td>
+            <td th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Name Error</td>
+        </tr>
+        <tr>
+            <td>Surname:</td>
+            <td><input type="text" th:field="*{cognome}" /></td>
+            <td th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}">Surname Error</td>
+        </tr>
+
+        <tr>
+            <td>Id:</td>
+            <td><input type="id" th:field="*{id}" /></td>
+            <td th:if="${#fields.hasErrors('id')}" th:errors="*{id}">Id Error</td>
+        </tr>
+        <tr>
+            <td><button type="submit">Submit</button></td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>
