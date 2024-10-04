@@ -1,7 +1,10 @@
 package com.gestionePersonale.demo;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -20,9 +23,12 @@ public class Navigazione {
         return "login";
     }
 
-    @RequestMapping(value = "/registrazione")
-    public String registrazione() {
-        return "registrazione";
+    @PostMapping("login")
+    public String login(@Valid Personale personale, BindingResult bindingResult) {
+        if(bindingResult.hasErrors())
+            return "login";
+
+        return "redirect:/areaUtente";
     }
 
 }
