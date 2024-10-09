@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Area Amministratore</title>
+    </head>
+<body>
+    <h1>Benvenuto Amministratore!</h1>
+    <h2>Inserisci un nuovo dipendente</h2>
+    <form action="#" th:action="@{/areaAmministratore}" th:object="${personale}" method="post">
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" th:field="*{nome}" /></td>
+                <td th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Name Error</td>
+            </tr>
+            <tr>
+                <td>Surname:</td>
+                <td><input type="text" th:field="*{cognome}" /></td>
+                <td th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}">Surname Error</td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="email" th:field="*{email}" /></td>
+                <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" th:field="*{password}" /></td>
+                <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+            </tr>
+
+            <tr>
+                <td><button type="submit">Submit</button></td>
+            </tr>
+        </table>
+    </form>
+    </body>
+</html>

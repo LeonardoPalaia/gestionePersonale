@@ -11,6 +11,7 @@ import java.util.ArrayList;
 @Controller
 @SessionAttributes("utenteLoggato")
 public class Navigazione {
+    ArrayList<Personale> utentiLoggati = new ArrayList<>();
 
     @GetMapping(value = "/areaUtente")
     public String areaUtente() {
@@ -25,11 +26,22 @@ public class Navigazione {
         return "login";
     }
     @PostMapping("login")
-    public String login(@Valid Personale personale, BindingResult bindingResult, Model model) {
+    public String login(@Valid Personale personale, BindingResult bindingResult) {
         if(bindingResult.hasErrors())
             return "login";
 
         model.addAttribute("loggedInUser", personale);
         return "redirect:/areaUtente";
     }
+
+    @PostMapping("areaAmministratore")
+    public String areaAmministratore(@Valid Personale personale, BindingResult bindingResult) {
+        if(bindingResult.hasErrors())
+            return "areaAmministratore";
+
+        //utentiSalvati.add(personale);
+
+        return "redirect:/areaAmministratore";
+    }
+
 }
