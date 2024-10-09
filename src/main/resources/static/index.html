@@ -6,7 +6,9 @@
 </head>
 <body>
 
-    <p><a href="/login">Login</a></p>
+    <p th:if="${user.isLoggedIn}">Benvenuto, ${user.name}!</p>
+
+    <div th:insert="fragments/login :: login"></div>
 
 
 </body>

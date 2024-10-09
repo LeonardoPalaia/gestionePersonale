@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class Navigazione {
+
     @RequestMapping(value = "/areaUtente")
     public String areaUtente() {
         return "areaUtente";
