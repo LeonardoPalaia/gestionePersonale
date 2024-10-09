@@ -1,6 +1,6 @@
 package com.gestionePersonale.demo;
 
-public abstract class Personale {
+public class Personale {
 
     int id;
     String nome, cognome;
