@@ -1,27 +1,27 @@
 <html>
-<body>
-<form action="#" th:action="@{/login}" th:object="${personale}" method="post">
-    <table>
-        <tr>
-            <td>Name:</td>
-            <td><input type="text" th:field="*{nome}" /></td>
-            <td th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Name Error</td>
-        </tr>
-        <tr>
-            <td>Surname:</td>
-            <td><input type="text" th:field="*{cognome}" /></td>
-            <td th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}">Surname Error</td>
-        </tr>
+    <body>
+        <form action="#" th:action="@{/login}" th:object="${personale}" method="post" th:fragment="login">
+            <div>
+                <label>Name:</label>
+                <input type="text" th:field="*{nome}" />
+                <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Name Error</div>
+            </div>
 
-        <tr>
-            <td>Id:</td>
-            <td><input type="id" th:field="*{id}" /></td>
-            <td th:if="${#fields.hasErrors('id')}" th:errors="*{id}">Id Error</td>
-        </tr>
-        <tr>
-            <td><button type="submit">Submit</button></td>
-        </tr>
-    </table>
-</form>
-</body>
+            <div>
+                <label>Surname:</label>
+                <input type="text" th:field="*{cognome}" />
+                <div th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}">Surname Error</div>
+            </div>
+
+            <div>
+                <label>Id:</label>
+                <input type="text" th:field="*{id}" />
+                <div th:if="${#fields.hasErrors('id')}" th:errors="*{id}">Id Error</div>
+            </div>
+
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </body>
 </html>
