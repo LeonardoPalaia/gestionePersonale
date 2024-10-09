@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @SessionAttributes("utenteLoggato")
 public class Navigazione {
-    @GetMapping("/")
+    @GetMapping("/index")
     public String index() {
         return "index";
     }
@@ -47,8 +47,6 @@ public class Navigazione {
     public String areaAmministratore(@Valid Personale personale, BindingResult bindingResult) {
         if(bindingResult.hasErrors())
             return "areaAmministratore";
-
-        //utentiSalvati.add(personale);
 
         return "redirect:/areaAmministratore";
     }
