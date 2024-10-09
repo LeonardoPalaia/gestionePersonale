@@ -6,9 +6,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.ArrayList;
 
 @Controller
 public class Navigazione {
+    ArrayList<Personale> utentiLoggati = new ArrayList<>();
+
     @RequestMapping(value = "/areaUtente")
     public String areaUtente() {
         return "areaUtente";
@@ -28,6 +31,7 @@ public class Navigazione {
         if(bindingResult.hasErrors())
             return "login";
 
+        utentiLoggati.add(personale);
         return "redirect:/areaUtente";
     }
 
