@@ -31,4 +31,14 @@ public class Navigazione {
         return "redirect:/areaUtente";
     }
 
+    @PostMapping("areaAmministratore")
+    public String areaAmministratore(@Valid Personale personale, BindingResult bindingResult) {
+        if(bindingResult.hasErrors())
+            return "areaAmministratore";
+
+        //utentiSalvati.add(personale);
+
+        return "redirect:/areaAmministratore";
+    }
+
 }
