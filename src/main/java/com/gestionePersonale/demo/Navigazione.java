@@ -20,7 +20,6 @@ public class Navigazione {
         return "index";
     }
 
-
     @GetMapping("/login")
     public String loginForm(Model model) {
         model.addAttribute("credenziali", new Credenziali());
@@ -36,8 +35,7 @@ public class Navigazione {
             return "login";
         }
 
-        // Esempio di validazione: verifica email e password con il database
-        // Se l'autenticazione ha successo:
+        // Qui dovresti aggiungere la validazione con il database
         session.setAttribute("utenteLoggato", credenziali);
 
         if (credenziali.isAmministratore()) {
@@ -45,7 +43,6 @@ public class Navigazione {
         }
         return "redirect:/areaUtente";
     }
-
 
     @GetMapping("/areaUtente")
     public String areaUtente(HttpSession session) {
