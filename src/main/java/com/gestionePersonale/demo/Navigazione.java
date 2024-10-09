@@ -7,8 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-
 @Controller
 @SessionAttributes("utenteLoggato")
 public class Navigazione {
@@ -39,20 +37,11 @@ public class Navigazione {
     public String areaUtente() {
         return "areaUtente";
     }
+
     @GetMapping(value = "/areaAmministratore")
     public String areaAmministratore() {
         return "areaAmministratore";
     }
-    /*@PostMapping("login")
-    public String login(@Valid Credenziali credenziali, BindingResult bindingResult, Model model) {
-        if(bindingResult.hasErrors())
-            return "login";
-
-        model.addAttribute("loggedInUser", credenziali);
-        return "redirect:/areaUtente";
-    }*/
-
-
 
     @PostMapping("areaAmministratore")
     public String areaAmministratore(@Valid Personale personale, BindingResult bindingResult) {
@@ -63,5 +52,4 @@ public class Navigazione {
 
         return "redirect:/areaAmministratore";
     }
-
 }
