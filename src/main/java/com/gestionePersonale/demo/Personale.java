@@ -3,7 +3,7 @@ package com.gestionePersonale.demo;
 public abstract class Personale {
 
     int id;
-    String nome, cognome, mail, password;
+    String nome, cognome;
 
     public Personale(int id, String nome, String cognome) {
         this.id = id;
@@ -33,21 +33,5 @@ public abstract class Personale {
 
     public void setCognome(String cognome) {
         this.cognome = cognome;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }
