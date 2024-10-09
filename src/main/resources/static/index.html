@@ -6,13 +6,13 @@
     </head>
     <body>
 
-        <div th:if="${#session.containsAttribute('loggedInUser')}">
+        <div th:if="${#session.containsAttribute('utenteLoggato')}">
             <p>Benvenuto, <span th:text="${loggedInUser.nome}"></span>!</p>
             <a href="/areaUtente">Vai alla tua area personale</a> |
             <a href="/logout">Logout</a>
         </div>
 
-        <div th:if="${!#session.containsAttribute('loggedInUser')}">
+        <div th:if="${!#session.containsAttribute('utenteLoggato')}">
             <p>Non sei loggato. Effettua il login:</p>
             <div th:insert="fragments/login :: login"></div>
         </div>
