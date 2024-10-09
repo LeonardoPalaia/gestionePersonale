@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-</head>
-<body>
-
-<!-- Mostra il messaggio di benvenuto e i link solo se l'utente è loggato -->
-<div th:if="${utenteLoggato != null}">
-    <p>Benvenuto, <span th:text="${utenteLoggato.email}"></span>!</p>
-    <a href="/areaUtente">Vai alla tua area personale</a> |
-    <a href="/logout">Logout</a>
-</div>
-
-<!-- Mostra il form di login solo se l'utente NON è loggato -->
-<div th:if="${utenteLoggato == null}">
-    <p>Non sei loggato. Effettua il login:</p>
-    <div th:insert="fragments/login :: login"></div>
-</div>
-
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Index</title>
+        <link
+                rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.cyan.min.css"
+        >
+    </head>
+    <body>
+        <div th:if="${utenteLoggato != null}">
+            <p>Benvenuto, <span th:text="${utenteLoggato.email}"></span>!</p>
+            <a href="/areaUtente">Vai alla tua area personale</a> |
+            <a href="/logout">Logout</a>
+        </div>
+        <div th:if="${utenteLoggato == null}">
+            <p>Non sei loggato. Effettua il login:</p>
+            <div th:insert="fragments/login :: login"></div>
+        </div>
+    </body>
 </html>
