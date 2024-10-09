@@ -14,5 +14,35 @@ public class OrarioLavoro {
         this.id_sezione = id_sezione;
     }
 
+    public LocalDateTime getData_ora_inizio_turno() {
+        return data_ora_inizio_turno;
+    }
 
+    public void setData_ora_inizio_turno(LocalDateTime data_ora_inizio_turno) {
+        this.data_ora_inizio_turno = data_ora_inizio_turno;
+    }
+
+    public LocalDateTime getData_ora_fine_turno() {
+        return data_ora_fine_turno;
+    }
+
+    public void setData_ora_fine_turno(LocalDateTime data_ora_fine_turno) {
+        this.data_ora_fine_turno = data_ora_fine_turno;
+    }
+
+    public int getId_personale() {
+        return id_personale;
+    }
+
+    public void setId_personale(int id_personale) {
+        this.id_personale = id_personale;
+    }
+
+    public int getId_sezione() {
+        return id_sezione;
+    }
+
+    public void setId_sezione(int id_sezione) {
+        this.id_sezione = id_sezione;
+    }
 }
