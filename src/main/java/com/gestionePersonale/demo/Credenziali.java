@@ -19,4 +19,8 @@ public class Credenziali {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isAmministratore() {
+        return email.contains("admin");
+    }
 }

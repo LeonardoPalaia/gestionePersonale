@@ -1,5 +1,6 @@
 package com.gestionePersonale.demo;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,12 +26,29 @@ public class Navigazione {
     public String login() {
         return "login";
     }
-    @PostMapping("login")
-    public String login(@Valid Personale personale, BindingResult bindingResult) {
+    /*@PostMapping("login")
+    public String login(@Valid Credenziali credenziali, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors())
             return "login";
 
-        model.addAttribute("loggedInUser", personale);
+        model.addAttribute("loggedInUser", credenziali);
+        return "redirect:/areaUtente";
+    }*/
+
+    @PostMapping("/login")
+    public String login(@Valid Credenziali credenziali, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return "login";
+        }
+
+        // Qui dovresti aggiungere la logica per verificare le credenziali
+        // dell'utente nel database. Per ora simuliamo un login successful
+
+        session.setAttribute("loggedInUser", credenziali);
+
+        if (credenziali.isAmministratore()) {
+            return "redirect:/areaAmministratore";
+        }
         return "redirect:/areaUtente";
     }
 
