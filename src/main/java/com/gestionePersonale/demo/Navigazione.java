@@ -12,19 +12,36 @@ import java.util.ArrayList;
 @Controller
 @SessionAttributes("utenteLoggato")
 public class Navigazione {
-    ArrayList<Personale> utentiLoggati = new ArrayList<>();
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
 
-    @GetMapping(value = "/areaUtente")
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String login(@Valid Credenziali credenziali, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            return "login";
+        }
+        // Validazione utente con DB
+        session.setAttribute("utenteLoggato", credenziali);
+        if (credenziali.isAmministratore()) {
+            return "redirect:/areaAmministratore";
+        }
+        return "redirect:/areaUtente";
+    }
+
+    @GetMapping("/areaUtente")
     public String areaUtente() {
         return "areaUtente";
     }
     @GetMapping(value = "/areaAmministratore")
     public String areaAmministratore() {
         return "areaAmministratore";
-    }
-    @GetMapping(value = "/login")
-    public String login() {
-        return "login";
     }
     /*@PostMapping("login")
     public String login(@Valid Credenziali credenziali, BindingResult bindingResult, Model model) {
@@ -35,22 +52,7 @@ public class Navigazione {
         return "redirect:/areaUtente";
     }*/
 
-    @PostMapping("/login")
-    public String login(@Valid Credenziali credenziali, BindingResult bindingResult, HttpSession session) {
-        if (bindingResult.hasErrors()) {
-            return "login";
-        }
 
-        // Qui dovresti aggiungere la logica per verificare le credenziali
-        // dell'utente nel database. Per ora simuliamo un login successful
-
-        session.setAttribute("loggedInUser", credenziali);
-
-        if (credenziali.isAmministratore()) {
-            return "redirect:/areaAmministratore";
-        }
-        return "redirect:/areaUtente";
-    }
 
     @PostMapping("areaAmministratore")
     public String areaAmministratore(@Valid Personale personale, BindingResult bindingResult) {
