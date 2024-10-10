@@ -1,70 +1,32 @@
 package com.gestionePersonale.demo;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class Navigazione {
-
+    private boolean isLoggedIn = false;
     @GetMapping("/index")
-    public String index(Model model, HttpSession session) {
-        // Aggiungiamo l'oggetto Credenziali al model solo se esiste in sessione
-        Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
-        if (utenteLoggato != null) {
-            model.addAttribute("utenteLoggato", utenteLoggato);
+    public String index() {
+        if(isLoggedIn) {
+            return "index";
         }
-        return "index";
+        else return "login";
     }
-
     @GetMapping("/login")
-    public String loginForm(Model model) {
-        model.addAttribute("credenziali", new Credenziali());
+    public String login() {
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute("credenziali") @Valid Credenziali credenziali,
-                        BindingResult bindingResult,
-                        HttpSession session,
-                        Model model) {
+    public String login(@Valid Credenziali credenziali, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "login";
         }
-
-        // Qui dovresti aggiungere la validazione con il database
-        session.setAttribute("utenteLoggato", credenziali);
-
-        if (credenziali.isAmministratore()) {
-            return "redirect:/areaAmministratore";
-        }
-        return "redirect:/areaUtente";
-    }
-
-    @GetMapping("/areaUtente")
-    public String areaUtente(HttpSession session) {
-        Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
-        if (utenteLoggato == null) {
-            return "redirect:/login";
-        }
-        return "areaUtente";
-    }
-
-    @GetMapping("/areaAmministratore")
-    public String areaAmministratore(HttpSession session) {
-        Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
-        if (utenteLoggato == null || !utenteLoggato.isAmministratore()) {
-            return "redirect:/login";
-        }
-        return "areaAmministratore";
-    }
-
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/";
+        // Validazione con il DB
+        isLoggedIn = true;
+        return "redirect:/index";
     }
 }

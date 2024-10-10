@@ -2,20 +2,33 @@
 <html lang="it">
     <head>
         <meta charset="UTF-8">
-        <title>Index</title>
+        <title>Home Page</title>
         <link
                 rel="stylesheet"
                 href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.cyan.min.css"
         >
+        <style>
+            header {
+                padding: 20px;
+            }
+            header nav div a {
+                padding: 0px 7px;
+            }
+        </style>
     </head>
     <body>
-    <div th:insert="fragments/header :: header"></div>
-    <div th:if="${utenteLoggato != null}">
+        <header>
+            <nav>
+                <div>Logo</div>
+                <div>
+                    <a href="\areaPersonale">Area personale</a>
+                    <a href="\logout">Logout</a>
+                </div>
+            </nav>
+        </header>
+        <div th:insert="fragments/header :: header"></div>
+        <div th:if="${utenteLoggato != null}">
             <p>Benvenuto, <span th:text="${utenteLoggato.email}"></span>!</p>
-            <!--
-            <a href="/areaUtente">Vai alla tua area personale</a> |
-            <a href="/logout">Logout</a>
-            -->
         </div>
         <div th:if="${utenteLoggato == null}">
             <p>Non sei loggato. Effettua il login:</p>
