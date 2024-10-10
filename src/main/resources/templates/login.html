@@ -1,6 +1,22 @@
 <html>
+    <head>
+        <link
+                rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.cyan.min.css"
+        >
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            form {
+                max-width: 250px;
+            }
+        </style>
+    </head>
     <body>
-        <form action="#" th:action="@{/index}" th:object="${credenziali}" method="post">
+        <form action="#" th:action="@{/login}" th:object="${credenziali}" method="post">
             <div>
                 <label>Email</label>
                 <input type="email" th:field="*{email}" />
