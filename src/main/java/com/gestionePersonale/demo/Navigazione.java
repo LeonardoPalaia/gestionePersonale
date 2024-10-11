@@ -31,7 +31,7 @@ public class Navigazione {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("credenziali") Credenziali credenziali, BindingResult bindingResult, Model model) {
+    public String login(@Valid @ModelAttribute("credenziali") Credenziali credenziali, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "login";
         }
