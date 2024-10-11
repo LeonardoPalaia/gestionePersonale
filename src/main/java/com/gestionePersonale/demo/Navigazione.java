@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class Navigazione {
     private Credenziali utenteLoggato;
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String home(Model model) {
         if (utenteLoggato == null) {
             return "redirect:/login";
@@ -24,7 +24,7 @@ public class Navigazione {
     @GetMapping("/login")
     public String loginForm(Model model) {
         if (utenteLoggato != null) {
-            return "redirect:/index";
+            return "redirect:/";
         }
         model.addAttribute("credenziali", new Credenziali());
         return "login";
@@ -36,6 +36,12 @@ public class Navigazione {
             return "login";
         }
         utenteLoggato = credenziali;
-        return "redirect:/index";
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        utenteLoggato = null;
+        return "redirect:/";
     }
 }
