@@ -10,7 +10,7 @@ public class Credenziali {
     @Email
     private String email;
     @NotNull
-    @Min(8)
+    @Size(min = 8, message = "La password deve essere almeno di 8 caratteri")
     private String password;
 
     public @NotNull @Email String getEmail() {
@@ -21,11 +21,11 @@ public class Credenziali {
         this.email = email;
     }
 
-    public @NotNull @Min(8) String getPassword() {
+    public @NotNull @Size(min = 8, message = "La password deve essere almeno di 8 caratteri") String getPassword() {
         return password;
     }
 
-    public void setPassword(@NotNull @Min(8) String password) {
+    public void setPassword(@NotNull @Size(min = 8, message = "La password deve essere almeno di 8 caratteri") String password) {
         this.password = password;
     }
 

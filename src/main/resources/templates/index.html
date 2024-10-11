@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Home Page</title>
+        <link
+                rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.cyan.min.css"
+        >
+        <style>
+            .saluto {
+                padding: 20px;
+            }
+            header {
+                padding: 20px;
+            }
+            header nav div a {
+                padding: 0px 7px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div>Logo</div>
+                <div>
+                    <a href="/areaPersonale">Area personale</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </nav>
+        </header>
+        <div th:if="${utenteLoggato != null}" class="saluto">
+            <p>Benvenuto, <span th:text="${utenteLoggato.email}"></span>!</p>
+        </div>
+    </body>
+</html>
