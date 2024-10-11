@@ -9,7 +9,7 @@
         >
     </head>
     <body>
-    <div th:insert="fragments/header :: header"></div>
+    <div th:replace="fragments/header :: navbar"></div>
     <div th:if="${utenteLoggato != null}">
             <p>Benvenuto, <span th:text="${utenteLoggato.email}"></span>!</p>
             <!--
