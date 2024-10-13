@@ -44,4 +44,28 @@ public class Navigazione {
         utenteLoggato = null;
         return "redirect:/";
     }
+
+    @GetMapping("/area_personale")
+    public String areaPersonale(Model model) {
+        if (utenteLoggato == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("utenteLoggato", utenteLoggato);
+        if (utenteLoggato.isAmministratore()) {
+            return "redirect:/area_amministratore";
+        }
+        else {
+            return "redirect:/area_utente";
+        }
+    }
+
+    @GetMapping("/area_utente")
+    public String areaUtente() {
+        return "area_utente";
+    }
+
+    @GetMapping("/area_amministratore")
+    public String areaAmministartore() {
+        return "area_amministratore";
+    }
 }
