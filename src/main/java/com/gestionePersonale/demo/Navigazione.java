@@ -73,14 +73,31 @@ public class Navigazione {
     }
 
     @GetMapping("/area_amministratore")
-    public String areaAmministartore(Model model) {
-        if(utenteLoggato == null) {
+    public String areaAmministratore(Model model) {
+        if (utenteLoggato == null) {
             return "redirect:/login";
         }
         model.addAttribute("utenteLoggato", utenteLoggato);
-        if(!utenteLoggato.isAmministratore()) {
+        if (!utenteLoggato.isAmministratore()) {
             return "redirect:/area_utente";
         }
-        return "area_amministratore";
+
+        // Aggiungi un nuovo oggetto Personale al modello
+        model.addAttribute("personale", new Personale());
+
+        return "area_amministratore";  // Nome della vista Thymeleaf
+    }
+
+    @PostMapping("/areaAmministratore")
+    public String processaFormAmministratore(@Valid @ModelAttribute("personale") Personale personale, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            // Ritorna il form se ci sono errori di validazione
+            return "area_amministratore";
+        }
+
+        // Logica per salvare il nuovo dipendente o altre operazioni
+        // ...
+
+        return "redirect:/successo";  // Redirigi a una pagina di successo dopo il submit
     }
 }

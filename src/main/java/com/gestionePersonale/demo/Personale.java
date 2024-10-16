@@ -1,14 +1,31 @@
 package com.gestionePersonale.demo;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 public class Personale {
 
-    int id;
-    String nome, cognome;
+    @NotNull
+    @Size(min = 1)
+    private int id;
+    @NotNull
+    private String nome, cognome;
+    @NotNull
+    @Email
+    private String email;
+    @NotNull
+    private int ruolo;
 
-    public Personale(int id, String nome, String cognome) {
+    public Personale() {
+    }
+
+    public Personale(int id, String nome, String cognome, String email, int ruolo) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
+        this.email = email;
+        this.ruolo = ruolo;
     }
 
     public int getId() {
@@ -33,5 +50,21 @@ public class Personale {
 
     public void setCognome(String cognome) {
         this.cognome = cognome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getRuolo() {
+        return ruolo;
+    }
+
+    public void setRuolo(int ruolo) {
+        this.ruolo = ruolo;
     }
 }

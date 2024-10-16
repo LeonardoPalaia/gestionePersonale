@@ -8,7 +8,7 @@
                 href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.cyan.min.css"
         >
         <style>
-            .saluto {
+            .saluto, form, h2 {
                 padding: 20px;
             }
             header {
@@ -30,7 +30,7 @@
             </nav>
         </header>
         <h1 class="saluto">Benvenuto Amministratore!</h1>
-        <!--<h2>Inserisci un nuovo dipendente</h2>
+        <h2>Inserisci un nuovo dipendente</h2>
         <form action="#" th:action="@{/areaAmministratore}" th:object="${personale}" method="post">
             <table>
                 <tr>
@@ -49,15 +49,26 @@
                     <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</td>
                 </tr>
                 <tr>
-                    <td>Password:</td>
-                    <td><input type="password" th:field="*{password}" /></td>
-                    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</td>
+                    <td>ID:</td>
+                    <td><input type="number" th:field="*{id}" /></td>
+                    <td th:if="${#fields.hasErrors('id')}" th:errors="*{id}">Password Error</td>
+                </tr>
+                <tr>
+                    <td>Ruolo:</td>
+                    <td>
+                        <select th:field="*{ruolo}">
+                            <option value="1">Amministratore</option>
+                            <option value="2">Guida</option>
+                            <option value="3">Curatore</option>
+                        </select>
+                    <td th:if="${#fields.hasErrors('ruolo')}" th:errors="*{ruolo}">Ruolo Error</td>
+                    </td>
                 </tr>
 
                 <tr>
                     <td><button type="submit">Submit</button></td>
                 </tr>
             </table>
-        </form>-->
+        </form>
     </body>
 </html>
