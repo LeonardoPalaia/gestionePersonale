@@ -1,7 +1,6 @@
 package com.gestionePersonale.demo;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -9,7 +8,6 @@ import jakarta.validation.constraints.Size;
 public class Personale extends Credenziali {
 
     @NotNull
-    @Size(min = 1)
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
@@ -17,14 +15,14 @@ public class Personale extends Credenziali {
     private String nome, cognome;
 
     @ManyToOne
-    @JoinColumn(name="id_ruolo", referencedColumnName = "id")
+    //@JoinColumn(name="id_ruolo", referencedColumnName = "id")
     private Ruolo ruolo;
 
     public @NotNull @Size(min = 1) int getId() {
         return id;
     }
 
-    public void setId(@NotNull @Size(min = 1) int id) {
+    public void setId(@NotNull int id) {
         this.id = id;
     }
 
