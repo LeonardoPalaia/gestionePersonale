@@ -45,4 +45,5 @@ public class Personale extends Credenziali {
         this.cognome = cognome;
     }
 
+
 }
