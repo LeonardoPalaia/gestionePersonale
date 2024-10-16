@@ -1,5 +1,7 @@
-package com.gestionePersonale.demo;
+package com.gestionePersonale.demo.controller;
 
+import com.gestionePersonale.demo.model.Credenziali;
+import com.gestionePersonale.demo.model.Personale;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;

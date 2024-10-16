@@ -1,4 +1,4 @@
-package com.gestionePersonale.demo;
+package com.gestionePersonale.demo.model;
 
 import jakarta.persistence.*;
 
