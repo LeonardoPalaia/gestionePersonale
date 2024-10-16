@@ -1,10 +1,6 @@
-package com.gestionePersonale.demo;
+package com.gestionePersonale.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -12,20 +8,21 @@ import jakarta.validation.constraints.Size;
 public class Personale extends Credenziali {
 
     @NotNull
-    @Size(min = 1)
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private String id;
+    private int id;
     @NotNull
     private String nome, cognome;
 
-    private int idRuolo;
+    @ManyToOne
+    //@JoinColumn(name="id_ruolo", referencedColumnName = "id")
+    private Ruolo ruolo;
 
-    public @NotNull @Size(min = 1) String getId() {
+    public @NotNull @Size(min = 1) int getId() {
         return id;
     }
 
-    public void setId(@NotNull @Size(min = 1) String id) {
+    public void setId(@NotNull int id) {
         this.id = id;
     }
 

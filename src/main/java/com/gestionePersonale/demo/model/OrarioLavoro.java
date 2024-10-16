@@ -1,9 +1,6 @@
-package com.gestionePersonale.demo;
+package com.gestionePersonale.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
@@ -28,6 +25,12 @@ public class OrarioLavoro {
         this.id_sezione = id_sezione;
         this.id=id;
     }
+
+    @ManyToOne
+    Sezione sezione;
+
+    @ManyToOne
+    Personale personale;
 
     public LocalDateTime getData_ora_inizio_turno() {
         return data_ora_inizio_turno;
