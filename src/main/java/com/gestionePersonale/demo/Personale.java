@@ -11,12 +11,7 @@ public class Personale extends Credenziali {
     private String id;
     @NotNull
     private String nome, cognome;
-    @NotNull
-    @Email
-    private String email;
-    @NotNull
-    @Size(min = 8, message = "La password deve essere almeno di 8 caratteri")
-    private String passoword;
+
     @NotNull
     private int ruolo;
 
@@ -44,21 +39,6 @@ public class Personale extends Credenziali {
         this.cognome = cognome;
     }
 
-    public @NotNull @Email String getEmail() {
-        return email;
-    }
-
-    public void setEmail(@NotNull @Email String email) {
-        this.email = email;
-    }
-
-    public @NotNull @Size(min = 8, message = "La password deve essere almeno di 8 caratteri") String getPassoword() {
-        return passoword;
-    }
-
-    public void setPassoword(@NotNull @Size(min = 8, message = "La password deve essere almeno di 8 caratteri") String passoword) {
-        this.passoword = passoword;
-    }
 
     @NotNull
     public int getRuolo() {
