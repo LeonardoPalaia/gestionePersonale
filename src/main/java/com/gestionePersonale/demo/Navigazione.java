@@ -82,10 +82,10 @@ public class Navigazione {
             return "redirect:/area_utente";
         }
 
-        // Aggiungi un nuovo oggetto Personale al modello
+
         model.addAttribute("personale", new Personale());
 
-        return "area_amministratore";  // Nome della vista Thymeleaf
+        return "area_amministratore";
     }
 
     @PostMapping("/areaAmministratore")
@@ -98,6 +98,6 @@ public class Navigazione {
         // Logica per salvare il nuovo dipendente o altre operazioni
         // ...
 
-        return "redirect:/successo";  // Redirigi a una pagina di successo dopo il submit
+        return "redirect:/successo";
     }
 }
