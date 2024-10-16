@@ -5,13 +5,14 @@ import java.time.LocalDateTime;
 public class OrarioLavoro {
 
     LocalDateTime data_ora_inizio_turno, data_ora_fine_turno;
-    int id_personale, id_sezione;
+    int id_personale, id_sezione, id;
 
-    public OrarioLavoro(LocalDateTime data_ora_inizio_turno, LocalDateTime data_ora_fine_turno, int id_personale, int id_sezione) {
+    public OrarioLavoro(LocalDateTime data_ora_inizio_turno, LocalDateTime data_ora_fine_turno, int id_personale, int id_sezione, int id) {
         this.data_ora_inizio_turno = data_ora_inizio_turno;
         this.data_ora_fine_turno = data_ora_fine_turno;
         this.id_personale = id_personale;
         this.id_sezione = id_sezione;
+        this.id=id;
     }
 
     public LocalDateTime getData_ora_inizio_turno() {
@@ -44,5 +45,13 @@ public class OrarioLavoro {
 
     public void setId_sezione(int id_sezione) {
         this.id_sezione = id_sezione;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
