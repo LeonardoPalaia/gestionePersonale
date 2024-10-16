@@ -19,6 +19,8 @@ public class Personale extends Credenziali {
     @NotNull
     private String nome, cognome;
 
+    private int idRuolo;
+
     public @NotNull @Size(min = 1) String getId() {
         return id;
     }
