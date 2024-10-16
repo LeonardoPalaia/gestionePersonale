@@ -18,7 +18,7 @@ public class Personale extends Credenziali {
     //@JoinColumn(name="id_ruolo", referencedColumnName = "id")
     private Ruolo ruolo;
 
-    public @NotNull @Size(min = 1) int getId() {
+    public @NotNull int getId() {
         return id;
     }
 
