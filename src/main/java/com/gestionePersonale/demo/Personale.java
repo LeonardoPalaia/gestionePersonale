@@ -15,56 +15,58 @@ public class Personale {
     @Email
     private String email;
     @NotNull
+    @Size(min = 8, message = "La password deve essere almeno di 8 caratteri")
+    private String passoword;
+    @NotNull
     private int ruolo;
 
-    public Personale() {
-    }
-
-    public Personale(String id, String nome, String cognome, String email, int ruolo) {
-        this.id = id;
-        this.nome = nome;
-        this.cognome = cognome;
-        this.email = email;
-        this.ruolo = ruolo;
-    }
-
-    public String getId() {
+    public @NotNull @Size(min = 1) String getId() {
         return id;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public void setId(String id) {
+    public void setId(@NotNull @Size(min = 1) String id) {
         this.id = id;
     }
 
-    public void setNome(String nome) {
+    public @NotNull String getNome() {
+        return nome;
+    }
+
+    public void setNome(@NotNull String nome) {
         this.nome = nome;
     }
 
-    public void setCognome(String cognome) {
+    public @NotNull String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(@NotNull String cognome) {
         this.cognome = cognome;
     }
 
-    public String getEmail() {
+    public @NotNull @Email String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(@NotNull @Email String email) {
         this.email = email;
     }
 
+    public @NotNull @Size(min = 8, message = "La password deve essere almeno di 8 caratteri") String getPassoword() {
+        return passoword;
+    }
+
+    public void setPassoword(@NotNull @Size(min = 8, message = "La password deve essere almeno di 8 caratteri") String passoword) {
+        this.passoword = passoword;
+    }
+
+    @NotNull
     public int getRuolo() {
         return ruolo;
     }
 
-    public void setRuolo(int ruolo) {
+    public void setRuolo(@NotNull int ruolo) {
         this.ruolo = ruolo;
     }
+
 }
