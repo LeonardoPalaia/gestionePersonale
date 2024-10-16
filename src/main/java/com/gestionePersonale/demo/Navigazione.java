@@ -1,5 +1,6 @@
 package com.gestionePersonale.demo;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class Navigazione {
-    private Credenziali utenteLoggato;
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(HttpSession session, Model model) {
+        Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
         if (utenteLoggato == null) {
             return "redirect:/login";
         }
@@ -22,7 +23,8 @@ public class Navigazione {
     }
 
     @GetMapping("/login")
-    public String loginForm(Model model) {
+    public String loginForm(HttpSession session, Model model) {
+        Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
         if (utenteLoggato != null) {
             return "redirect:/";
         }
@@ -31,37 +33,38 @@ public class Navigazione {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute("credenziali") Credenziali credenziali, BindingResult bindingResult) {
+    public String login(@Valid @ModelAttribute("credenziali") Credenziali credenziali, BindingResult bindingResult, HttpSession session) {
         if (bindingResult.hasErrors()) {
             return "login";
         }
-        utenteLoggato = credenziali;
+        session.setAttribute("utenteLoggato", credenziali);
         return "redirect:/";
     }
 
     @GetMapping("/logout")
-    public String logout() {
-        utenteLoggato = null;
+    public String logout(HttpSession session) {
+        session.invalidate();
         return "redirect:/";
     }
 
     @GetMapping("/area_personale")
-    public String areaPersonale(Model model) {
+    public String areaPersonale(HttpSession session, Model model) {
+        Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
         if (utenteLoggato == null) {
             return "redirect:/login";
         }
         model.addAttribute("utenteLoggato", utenteLoggato);
         if (utenteLoggato.isAmministratore()) {
             return "redirect:/area_amministratore";
-        }
-        else {
+        } else {
             return "redirect:/area_utente";
         }
     }
 
     @GetMapping("/area_utente")
-    public String areaUtente(Model model) {
-        if(utenteLoggato == null) {
+    public String areaUtente(HttpSession session, Model model) {
+        Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
+        if (utenteLoggato == null) {
             return "redirect:/login";
         }
         model.addAttribute("utenteLoggato", utenteLoggato);
@@ -73,7 +76,8 @@ public class Navigazione {
     }
 
     @GetMapping("/area_amministratore")
-    public String areaAmministratore(Model model) {
+    public String areaAmministratore(HttpSession session, Model model) {
+        Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
         if (utenteLoggato == null) {
             return "redirect:/login";
         }
@@ -82,21 +86,15 @@ public class Navigazione {
             return "redirect:/area_utente";
         }
 
-
         model.addAttribute("personale", new Personale());
-
         return "area_amministratore";
     }
 
     @PostMapping("/areaAmministratore")
     public String processaFormAmministratore(@Valid @ModelAttribute("personale") Personale personale, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            // Ritorna il form se ci sono errori di validazione
             return "area_amministratore";
         }
-
-        // Logica per salvare il nuovo dipendente o altre operazioni
-        // ...
 
         return "redirect:/successo";
     }
