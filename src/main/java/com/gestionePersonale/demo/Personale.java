@@ -8,7 +8,7 @@ public class Personale {
 
     @NotNull
     @Size(min = 1)
-    private int id;
+    private String id;
     @NotNull
     private String nome, cognome;
     @NotNull
@@ -20,7 +20,7 @@ public class Personale {
     public Personale() {
     }
 
-    public Personale(int id, String nome, String cognome, String email, int ruolo) {
+    public Personale(String id, String nome, String cognome, String email, int ruolo) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
@@ -28,7 +28,7 @@ public class Personale {
         this.ruolo = ruolo;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -40,7 +40,7 @@ public class Personale {
         return cognome;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
