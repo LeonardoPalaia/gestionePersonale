@@ -1,11 +1,25 @@
 package com.gestionePersonale.demo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.time.LocalDateTime;
 
+@Entity
 public class OrarioLavoro {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    int id;
+
     LocalDateTime data_ora_inizio_turno, data_ora_fine_turno;
-    int id_personale, id_sezione, id;
+    int id_personale, id_sezione;
+
+    public OrarioLavoro() {
+
+    }
 
     public OrarioLavoro(LocalDateTime data_ora_inizio_turno, LocalDateTime data_ora_fine_turno, int id_personale, int id_sezione, int id) {
         this.data_ora_inizio_turno = data_ora_inizio_turno;
