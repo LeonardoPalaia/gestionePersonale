@@ -60,12 +60,27 @@ public class Navigazione {
     }
 
     @GetMapping("/area_utente")
-    public String areaUtente() {
-        return "area_utente";
+    public String areaUtente(Model model) {
+        if(utenteLoggato == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("utenteLoggato", utenteLoggato);
+        if (utenteLoggato.isAmministratore()) {
+            return "redirect:/area_amministratore";
+        } else {
+            return "area_utente";
+        }
     }
 
     @GetMapping("/area_amministratore")
-    public String areaAmministartore() {
+    public String areaAmministartore(Model model) {
+        if(utenteLoggato == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("utenteLoggato", utenteLoggato);
+        if(!utenteLoggato.isAmministratore()) {
+            return "redirect:/area_utente";
+        }
         return "area_amministratore";
     }
 }
