@@ -1,9 +1,11 @@
 package com.gestionePersonale.demo.model;
 
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+@MappedSuperclass
 public class Credenziali {
     @NotNull
     @Email

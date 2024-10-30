@@ -1,5 +1,6 @@
 package com.gestionePersonale.demo.controller;
 
+import com.gestionePersonale.demo.Dao.PersonaleDao;
 import com.gestionePersonale.demo.model.Credenziali;
 import com.gestionePersonale.demo.model.Personale;
 import jakarta.servlet.http.HttpSession;
@@ -13,6 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class Navigazione {
+
+    private final PersonaleDao personaleDao;
+
+    public Navigazione(PersonaleDao personaleDao) {
+        this.personaleDao = personaleDao;
+    }
 
     @GetMapping("/")
     public String home(HttpSession session, Model model) {
@@ -39,8 +46,17 @@ public class Navigazione {
         if (bindingResult.hasErrors()) {
             return "login";
         }
-        session.setAttribute("utenteLoggato", credenziali);
-        return "redirect:/";
+        Personale utente = personaleDao.findByEmail(credenziali.getEmail());
+        if(utente == null) {
+            return "login";
+        }
+        if(utente.getPassword().equals(credenziali.getPassword())) {
+            session.setAttribute("utenteLoggato", utente);
+            return "redirect:/";
+        }
+        else {
+            return "login";
+        }
     }
 
     @GetMapping("/logout")

@@ -9,7 +9,7 @@ public class OrarioLavoro {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    int id;
+    Integer id;
 
     LocalDateTime data_ora_inizio_turno, data_ora_fine_turno;
     int id_personale, id_sezione;
@@ -18,7 +18,7 @@ public class OrarioLavoro {
 
     }
 
-    public OrarioLavoro(LocalDateTime data_ora_inizio_turno, LocalDateTime data_ora_fine_turno, int id_personale, int id_sezione, int id) {
+    public OrarioLavoro(LocalDateTime data_ora_inizio_turno, LocalDateTime data_ora_fine_turno, int id_personale, int id_sezione, Integer id) {
         this.data_ora_inizio_turno = data_ora_inizio_turno;
         this.data_ora_fine_turno = data_ora_fine_turno;
         this.id_personale = id_personale;
@@ -64,11 +64,11 @@ public class OrarioLavoro {
         this.id_sezione = id_sezione;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }
