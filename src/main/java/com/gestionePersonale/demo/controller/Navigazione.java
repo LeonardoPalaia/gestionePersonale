@@ -132,4 +132,14 @@ public class Navigazione {
         return "redirect:/successo";
     }
 
+    @GetMapping("/successo")
+    public String successo(HttpSession session, Model model) {
+        Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
+        if (utenteLoggato == null) {
+            return "redirect:/login"; // Se l'utente non è loggato, reindirizza al login
+        }
+        model.addAttribute("utenteLoggato", utenteLoggato);
+        return "successo"; // Restituisce la vista successo.html
+    }
+
 }
