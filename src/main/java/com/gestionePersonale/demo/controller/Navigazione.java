@@ -102,6 +102,7 @@ public class Navigazione {
         model.addAttribute("ruoli", ruoloDao.findAll());
         return "area_amministratore";
     }
+
     public String areaAmministratore(HttpSession session, Model model) {
         Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
         if (utenteLoggato == null) {
@@ -123,5 +124,5 @@ public class Navigazione {
         }
 
         return "redirect:/successo";
-    }
+   }
 }
