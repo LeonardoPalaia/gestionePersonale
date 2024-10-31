@@ -56,11 +56,11 @@
                 <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
             </div>
 
-            <div>
+            <!--<div>
                 <label>Ruolo:</label>
-                <input type="number" th:field="*{ruolo.setId()}" />
-                <div th:if="${#fields.hasErrors('ruolo.setId()')}" th:errors="*{ruolo.setId()}">Ruolo Error</div>
-            </div>
+                <input type="number" th:field="*{ruolo.id}" />
+                <div th:if="${#fields.hasErrors('ruolo.id')}" th:errors="*{ruolo.id}">Ruolo Error</div>
+            </div>-->
 
             <div>
                 <button type="submit">Submit</button>
