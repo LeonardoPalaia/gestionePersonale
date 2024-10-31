@@ -1,6 +1,7 @@
 package com.gestionePersonale.demo.controller;
 
 import com.gestionePersonale.demo.Dao.PersonaleDao;
+import com.gestionePersonale.demo.Dao.RuoloDao;
 import com.gestionePersonale.demo.model.Credenziali;
 import com.gestionePersonale.demo.model.Personale;
 import jakarta.servlet.http.HttpSession;
@@ -16,9 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class Navigazione {
 
     private final PersonaleDao personaleDao;
+    private final RuoloDao ruoloDao;
 
-    public Navigazione(PersonaleDao personaleDao) {
+    public Navigazione(PersonaleDao personaleDao, RuoloDao ruoloDao) {
         this.personaleDao = personaleDao;
+        this.ruoloDao = ruoloDao;
     }
 
     @GetMapping("/")
@@ -94,6 +97,11 @@ public class Navigazione {
     }
 
     @GetMapping("/area_amministratore")
+    public String showAdminArea(Model model) {
+        model.addAttribute("personale", new Personale());
+        model.addAttribute("ruoli", ruoloDao.findAll());
+        return "area_amministratore";
+    }
     public String areaAmministratore(HttpSession session, Model model) {
         Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
         if (utenteLoggato == null) {
