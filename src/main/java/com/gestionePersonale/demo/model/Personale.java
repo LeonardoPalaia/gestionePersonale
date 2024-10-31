@@ -15,7 +15,6 @@ public class Personale extends Credenziali {
     private String nome, cognome;
 
     @ManyToOne
-    //@JoinColumn(name="id_ruolo", referencedColumnName = "id")
     private Ruolo ruolo;
 
     public @NotNull Integer getId() {

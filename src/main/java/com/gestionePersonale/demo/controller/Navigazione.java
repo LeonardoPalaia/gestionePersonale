@@ -103,11 +103,6 @@ public class Navigazione {
     }
 
     @GetMapping("/area_amministratore")
-    public String showAdminArea(Model model) {
-        model.addAttribute("personale", new Personale());
-        model.addAttribute("ruoli", ruoloDao.findAll());
-        return "area_amministratore";
-    }
     public String areaAmministratore(HttpSession session, Model model) {
         Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
         if (utenteLoggato == null) {
@@ -117,7 +112,6 @@ public class Navigazione {
         if (!utenteLoggato.isAmministratore()) {
             return "redirect:/area_utente";
         }
-
         model.addAttribute("personale", new Personale());
         return "area_amministratore";
     }

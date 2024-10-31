@@ -58,10 +58,8 @@
 
             <div>
                 <label>Ruolo:</label>
-                <select th:field="*{ruolo}">
-                    <option th:each="ruolo : ${ruoli}" th:value="${ruolo.id}" th:text="${ruolo.descrizione}"></option>
-                </select>
-                <div th:if="${#fields.hasErrors('ruolo')}" th:errors="*{ruolo}">Ruolo Error</div>
+                <input type="number" th:field="*{ruolo.setId()}" />
+                <div th:if="${#fields.hasErrors('ruolo.setId()')}" th:errors="*{ruolo.setId()}">Ruolo Error</div>
             </div>
 
             <div>
