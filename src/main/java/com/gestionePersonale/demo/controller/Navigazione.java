@@ -88,19 +88,7 @@ public class Navigazione {
         }
     }
 
-    @GetMapping("/area_utente")
-    public String areaUtente(HttpSession session, Model model) {
-        Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
-        if (utenteLoggato == null) {
-            return "redirect:/login";
-        }
-        model.addAttribute("utenteLoggato", utenteLoggato);
-        if (utenteLoggato.isAmministratore()) {
-            return "redirect:/area_amministratore";
-        } else {
-            return "area_utente";
-        }
-    }
+
 
     @GetMapping("/area_amministratore")
     public String areaAmministratore(HttpSession session, Model model) {
@@ -125,14 +113,23 @@ public class Navigazione {
         return "redirect:/successo";
     }
 
-
     @Autowired
     private OrarioLavoroDao orarioLavoroDao;
-
     @GetMapping("/area_utente")
-    public String getOrariLavorativi(Model model, @RequestParam Long personaleId) {
-        List<OrarioLavoro> orari = orarioLavoroDao.findByPersonaleId(personaleId);
-        model.addAttribute("orari", orari);
+    public String areaUtente(HttpSession session, Model model) {
+        Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
+        if (utenteLoggato == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("utenteLoggato", utenteLoggato);
+
+        Personale personale = personaleDao.findByEmail(utenteLoggato.getEmail());
+        if (personale != null) {
+            List<OrarioLavoro> orari = orarioLavoroDao.findByPersonaleId(personale.getId());
+            model.addAttribute("orari", orari);
+        }
+
         return "area_utente";
     }
 }
