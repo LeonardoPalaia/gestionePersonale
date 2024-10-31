@@ -118,9 +118,18 @@ public class Navigazione {
     @PostMapping("/areaAmministratore")
     public String processaFormAmministratore(@Valid @ModelAttribute("personale") Personale personale, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            List<Ruolo> ruoli = ruoloDao.findAll();
+            model.addAttribute("ruoli", ruoli);
             return "area_amministratore";
+        }
+
+        Ruolo ruolo = ruoloDao.findById(personale.getRuolo().getId()).orElse(null);
+        if (ruolo != null) {
+            personale.setRuolo(ruolo);
+            personaleDao.save(personale);
         }
 
         return "redirect:/successo";
     }
+
 }
