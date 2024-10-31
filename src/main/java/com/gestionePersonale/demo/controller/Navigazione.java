@@ -1,17 +1,23 @@
 package com.gestionePersonale.demo.controller;
 
+import com.gestionePersonale.demo.Dao.OrarioLavoroDao;
 import com.gestionePersonale.demo.Dao.PersonaleDao;
 import com.gestionePersonale.demo.Dao.RuoloDao;
 import com.gestionePersonale.demo.model.Credenziali;
+import com.gestionePersonale.demo.model.OrarioLavoro;
 import com.gestionePersonale.demo.model.Personale;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class Navigazione {
@@ -117,5 +123,16 @@ public class Navigazione {
         }
 
         return "redirect:/successo";
+    }
+
+
+    @Autowired
+    private OrarioLavoroDao orarioLavoroDao;
+
+    @GetMapping("/area_utente")
+    public String getOrariLavorativi(Model model, @RequestParam Long personaleId) {
+        List<OrarioLavoro> orari = orarioLavoroDao.findByPersonaleId(personaleId);
+        model.addAttribute("orari", orari);
+        return "area_utente";
     }
 }
