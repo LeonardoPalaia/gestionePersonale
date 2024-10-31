@@ -1,67 +1,66 @@
 package com.gestionePersonale.demo.model;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
 public class OrarioLavoro {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
-    LocalDateTime data_ora_inizio_turno, data_ora_fine_turno;
-    int id_personale, id_sezione;
-
-    public OrarioLavoro() {
-
-    }
-
-    public OrarioLavoro(LocalDateTime data_ora_inizio_turno, LocalDateTime data_ora_fine_turno, int id_personale, int id_sezione, Integer id) {
-        this.data_ora_inizio_turno = data_ora_inizio_turno;
-        this.data_ora_fine_turno = data_ora_fine_turno;
-        this.id_personale = id_personale;
-        this.id_sezione = id_sezione;
-        this.id=id;
-    }
+    private LocalDateTime dataOraInizioTurno;
+    private LocalDateTime dataOraFineTurno;
 
     @ManyToOne
-    Sezione sezione;
+    @JoinColumn(name = "id_personale", referencedColumnName = "id")
+    private Personale personale;
 
     @ManyToOne
-    Personale personale;
+    @JoinColumn(name = "id_sezione", referencedColumnName = "id")
+    private Sezione sezione;
 
-    public LocalDateTime getData_ora_inizio_turno() {
-        return data_ora_inizio_turno;
+    public OrarioLavoro() {}
+
+    public OrarioLavoro(LocalDateTime dataOraInizioTurno, LocalDateTime dataOraFineTurno, Personale personale, Sezione sezione) {
+        this.dataOraInizioTurno = dataOraInizioTurno;
+        this.dataOraFineTurno = dataOraFineTurno;
+        this.personale = personale;
+        this.sezione = sezione;
     }
 
-    public void setData_ora_inizio_turno(LocalDateTime data_ora_inizio_turno) {
-        this.data_ora_inizio_turno = data_ora_inizio_turno;
+    // Getters e Setters
+    public LocalDateTime getDataOraInizioTurno() {
+        return dataOraInizioTurno;
     }
 
-    public LocalDateTime getData_ora_fine_turno() {
-        return data_ora_fine_turno;
+    public void setDataOraInizioTurno(LocalDateTime dataOraInizioTurno) {
+        this.dataOraInizioTurno = dataOraInizioTurno;
     }
 
-    public void setData_ora_fine_turno(LocalDateTime data_ora_fine_turno) {
-        this.data_ora_fine_turno = data_ora_fine_turno;
+    public LocalDateTime getDataOraFineTurno() {
+        return dataOraFineTurno;
     }
 
-    public int getId_personale() {
-        return id_personale;
+    public void setDataOraFineTurno(LocalDateTime dataOraFineTurno) {
+        this.dataOraFineTurno = dataOraFineTurno;
     }
 
-    public void setId_personale(int id_personale) {
-        this.id_personale = id_personale;
+    public Personale getPersonale() {
+        return personale;
     }
 
-    public int getId_sezione() {
-        return id_sezione;
+    public void setPersonale(Personale personale) {
+        this.personale = personale;
     }
 
-    public void setId_sezione(int id_sezione) {
-        this.id_sezione = id_sezione;
+    public Sezione getSezione() {
+        return sezione;
+    }
+
+    public void setSezione(Sezione sezione) {
+        this.sezione = sezione;
     }
 
     public Integer getId() {
