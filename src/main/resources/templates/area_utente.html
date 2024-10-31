@@ -1,34 +1,56 @@
 <!DOCTYPE html>
 <html lang="it">
-    <head>
-        <meta charset="UTF-8">
-        <title>Area Utente</title>
-        <link
-                rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.cyan.min.css"
-        >
-        <style>
-            .saluto {
-                padding: 20px;
-            }
-            header {
-                padding: 20px;
-            }
-            header nav div a {
-                padding: 0px 7px;
-            }
-        </style>
-    </head>
-    <body>
-        <header>
-            <nav>
-                <div>Logo</div>
-                <div>
-                    <a href="/area_personale">Area personale</a>
-                    <a href="/logout">Logout</a>
-                </div>
-            </nav>
-        </header>
-        <h1 class="saluto">Benvenuto Utente!</h1>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Area Utente</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.cyan.min.css">
+    <style>
+        .saluto {
+            padding: 20px;
+        }
+        header {
+            padding: 20px;
+        }
+        header nav div a {
+            padding: 0px 7px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <div>Logo</div>
+        <div>
+            <a href="/area_personale">Area personale</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </nav>
+</header>
+<h1 class="saluto">Benvenuto Utente!</h1>
+
+<section>
+    <h2>I tuoi orari lavorativi</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Inizio Turno</th>
+            <th>Fine Turno</th>
+            <th>Sezione</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="orario : ${orari}">
+            <td th:text="${orario.personale.nome}"></td>
+            <td th:text="${orario.personale.cognome}"></td>
+            <td th:text="${orario.dataOraInizioTurno}"></td>
+            <td th:text="${orario.dataOraFineTurno}"></td>
+            <td th:text="${orario.sezione.descrizione}"></td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+</body>
 </html>
