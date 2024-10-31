@@ -60,7 +60,7 @@
                 <label>Ruolo:</label>
                 <select th:field="*{ruolo}">
                     <option value="">Seleziona un ruolo</option>
-                    <option th:each="ruolo : ${ruoli}"
+                    <option th:each="ruolo : ${ruoli}"x
                             th:value="${ruolo.id}"
                             th:text="${ruolo.descrizione}">
                     </option>
