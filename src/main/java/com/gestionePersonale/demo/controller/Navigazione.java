@@ -1,8 +1,10 @@
 package com.gestionePersonale.demo.controller;
 
+import com.gestionePersonale.demo.Dao.OrarioLavoroDao;
 import com.gestionePersonale.demo.Dao.PersonaleDao;
 import com.gestionePersonale.demo.Dao.RuoloDao;
 import com.gestionePersonale.demo.model.Credenziali;
+import com.gestionePersonale.demo.model.OrarioLavoro;
 import com.gestionePersonale.demo.model.Personale;
 import com.gestionePersonale.demo.model.Ruolo;
 import jakarta.servlet.http.HttpSession;
@@ -21,10 +23,12 @@ public class Navigazione {
 
     private final PersonaleDao personaleDao;
     private final RuoloDao ruoloDao;
+    private final OrarioLavoroDao orarioLavoroDao;
 
-    public Navigazione(PersonaleDao personaleDao, RuoloDao ruoloDao) {
+    public Navigazione(PersonaleDao personaleDao, RuoloDao ruoloDao, OrarioLavoroDao orarioLavoroDao) {
         this.personaleDao = personaleDao;
         this.ruoloDao = ruoloDao;
+        this.orarioLavoroDao = orarioLavoroDao;
     }
 
     @GetMapping("/")
@@ -53,16 +57,11 @@ public class Navigazione {
             return "login";
         }
         Personale utente = personaleDao.findByEmail(credenziali.getEmail());
-        if(utente == null) {
+        if (utente == null || !utente.getPassword().equals(credenziali.getPassword())) {
             return "login";
         }
-        if(utente.getPassword().equals(credenziali.getPassword())) {
-            session.setAttribute("utenteLoggato", utente);
-            return "redirect:/";
-        }
-        else {
-            return "login";
-        }
+        session.setAttribute("utenteLoggato", utente);
+        return "redirect:/";
     }
 
     @GetMapping("/logout")
@@ -78,26 +77,29 @@ public class Navigazione {
             return "redirect:/login";
         }
         model.addAttribute("utenteLoggato", utenteLoggato);
-        if (utenteLoggato.isAmministratore()) {
-            return "redirect:/area_amministratore";
-        } else {
-            return "redirect:/area_utente";
-        }
+        return utenteLoggato.isAmministratore() ? "redirect:/area_amministratore" : "redirect:/area_utente";
     }
 
     @GetMapping("/area_utente")
     public String areaUtente(HttpSession session, Model model) {
         Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
         if (utenteLoggato == null) {
-            return "redirect:/login";
+            return "redirect:/login"; // Reindirizza se l'utente non è loggato
         }
+
         model.addAttribute("utenteLoggato", utenteLoggato);
-        if (utenteLoggato.isAmministratore()) {
-            return "redirect:/area_amministratore";
-        } else {
-            return "area_utente";
+
+        // Recupera il personale associato all'utente loggato
+        Personale personale = personaleDao.findByEmail(utenteLoggato.getEmail());
+        if (personale != null) {
+            // Recupera gli orari lavorativi per il personale loggato usando direttamente l'id come Integer
+            List<OrarioLavoro> orari = orarioLavoroDao.findByPersonaleId(personale.getId());
+            model.addAttribute("orari", orari); // Aggiungi gli orari al modello
         }
+
+        return "area_utente"; // Restituisce la vista
     }
+
 
     @GetMapping("/area_amministratore")
     public String areaAmministratore(HttpSession session, Model model) {
@@ -106,24 +108,27 @@ public class Navigazione {
             return "redirect:/login";
         }
         model.addAttribute("utenteLoggato", utenteLoggato);
+
         if (!utenteLoggato.isAmministratore()) {
             return "redirect:/area_utente";
         }
+
         model.addAttribute("personale", new Personale());
         List<Ruolo> ruoli = ruoloDao.findAll();
         model.addAttribute("ruoli", ruoli);
+
         return "area_amministratore";
     }
 
     @PostMapping("/areaAmministratore")
     public String processaFormAmministratore(@Valid @ModelAttribute("personale") Personale personale, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            List<Ruolo> ruoli = ruoloDao.findAll();
-            model.addAttribute("ruoli", ruoli);
+            model.addAttribute("ruoli", ruoloDao.findAll());
             return "area_amministratore";
         }
 
-        Ruolo ruolo = ruoloDao.findById(personale.getRuolo().getId()).orElse(null);
+        // Assegna ruolo usando oggetto Ruolo
+        Ruolo ruolo = personale.getRuolo();
         if (ruolo != null) {
             personale.setRuolo(ruolo);
             personaleDao.save(personale);
@@ -136,10 +141,9 @@ public class Navigazione {
     public String successo(HttpSession session, Model model) {
         Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
         if (utenteLoggato == null) {
-            return "redirect:/login"; // Se l'utente non è loggato, reindirizza al login
+            return "redirect:/login";
         }
         model.addAttribute("utenteLoggato", utenteLoggato);
-        return "successo"; // Restituisce la vista successo.html
+        return "successo";
     }
-
 }
