@@ -30,7 +30,6 @@
             </nav>
         </header>
         <h1 class="saluto">Benvenuto Amministratore!</h1>
-        <!--
         <h2>Inserisci un nuovo dipendente</h2>
         <form action="#" th:action="@{/areaAmministratore}" th:object="${personale}" method="post">
             <div>
@@ -52,17 +51,15 @@
             </div>
 
             <div>
-                <label>ID:</label>
-                <input type="number" th:field="*{id}" />
-                <div th:if="${#fields.hasErrors('id')}" th:errors="*{id}">ID Error</div>
+                <label>Password:</label>
+                <input type="password" th:field="*{password}" />
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
             </div>
 
             <div>
                 <label>Ruolo:</label>
                 <select th:field="*{ruolo}">
-                    <option value="1">Amministratore</option>
-                    <option value="2">Guida</option>
-                    <option value="3">Curatore</option>
+                    <option th:each="ruolo : ${ruoli}" th:value="${ruolo.id}" th:text="${ruolo.descrizione}"></option>
                 </select>
                 <div th:if="${#fields.hasErrors('ruolo')}" th:errors="*{ruolo}">Ruolo Error</div>
             </div>
@@ -71,6 +68,5 @@
                 <button type="submit">Submit</button>
             </div>
         </form>
- -->
     </body>
 </html>
