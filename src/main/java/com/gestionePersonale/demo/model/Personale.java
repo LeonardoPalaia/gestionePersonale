@@ -10,7 +10,7 @@ public class Personale extends Credenziali {
     @NotNull
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private int id;
+    private Integer id;
     @NotNull
     private String nome, cognome;
 
@@ -18,11 +18,11 @@ public class Personale extends Credenziali {
     //@JoinColumn(name="id_ruolo", referencedColumnName = "id")
     private Ruolo ruolo;
 
-    public @NotNull int getId() {
+    public @NotNull Integer getId() {
         return id;
     }
 
-    public void setId(@NotNull int id) {
+    public void setId(@NotNull Integer id) {
         this.id = id;
     }
 
