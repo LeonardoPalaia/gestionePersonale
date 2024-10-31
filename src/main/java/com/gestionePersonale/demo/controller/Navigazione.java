@@ -89,15 +89,13 @@ public class Navigazione {
 
         model.addAttribute("utenteLoggato", utenteLoggato);
 
-        // Recupera il personale associato all'utente loggato
         Personale personale = personaleDao.findByEmail(utenteLoggato.getEmail());
         if (personale != null) {
-            // Recupera gli orari lavorativi per il personale loggato usando direttamente l'id come Integer
             List<OrarioLavoro> orari = orarioLavoroDao.findByPersonaleId(personale.getId());
-            model.addAttribute("orari", orari); // Aggiungi gli orari al modello
+            model.addAttribute("orari", orari);
         }
 
-        return "area_utente"; // Restituisce la vista
+        return "area_utente";
     }
 
 
