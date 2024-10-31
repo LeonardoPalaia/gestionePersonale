@@ -41,5 +41,11 @@ public class Personale extends Credenziali {
         this.cognome = cognome;
     }
 
+    public void setRuolo(@NotNull Ruolo ruolo) {
+        this.ruolo = ruolo;
+    }
 
+    public @NotNull Ruolo getRuolo() {
+        return ruolo;
+    }
 }
