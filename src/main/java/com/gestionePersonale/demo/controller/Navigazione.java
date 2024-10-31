@@ -4,6 +4,7 @@ import com.gestionePersonale.demo.Dao.PersonaleDao;
 import com.gestionePersonale.demo.Dao.RuoloDao;
 import com.gestionePersonale.demo.model.Credenziali;
 import com.gestionePersonale.demo.model.Personale;
+import com.gestionePersonale.demo.model.Ruolo;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class Navigazione {
@@ -107,6 +110,8 @@ public class Navigazione {
             return "redirect:/area_utente";
         }
         model.addAttribute("personale", new Personale());
+        List<Ruolo> ruoli = ruoloDao.findAll();
+        model.addAttribute("ruoli", ruoli);
         return "area_amministratore";
     }
 
