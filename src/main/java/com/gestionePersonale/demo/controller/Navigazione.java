@@ -120,7 +120,17 @@ public class Navigazione {
         if (result.hasErrors()) {
             return "area_amministratore";
         }
+        personaleDao.save(personale);
 
         return "redirect:/successo";
+    }
+
+    @GetMapping("/successo")
+    public String successo(HttpSession session, Model model) {
+        Credenziali utenteLoggato = (Credenziali) session.getAttribute("utenteLoggato");
+        if (utenteLoggato == null) {
+            return "redirect:/login";
+        }
+        return "successo";
     }
 }
