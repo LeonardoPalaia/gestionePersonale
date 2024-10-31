@@ -56,11 +56,17 @@
                 <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
             </div>
 
-            <!--<div>
+            <div>
                 <label>Ruolo:</label>
-                <input type="number" th:field="*{ruolo.id}" />
-                <div th:if="${#fields.hasErrors('ruolo.id')}" th:errors="*{ruolo.id}">Ruolo Error</div>
-            </div>-->
+                <select th:field="*{ruolo}">
+                    <option value="">Seleziona un ruolo</option>
+                    <option th:each="ruolo : ${ruoli}"
+                            th:value="${ruolo.id}"
+                            th:text="${ruolo.descrizione}">
+                    </option>
+                </select>
+                <div th:if="${#fields.hasErrors('ruolo')}" th:errors="*{ruolo}">Ruolo Error</div>
+            </div>
 
             <div>
                 <button type="submit">Submit</button>
