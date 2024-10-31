@@ -25,6 +25,9 @@ public class Navigazione {
     private final PersonaleDao personaleDao;
     private final RuoloDao ruoloDao;
 
+    @Autowired
+    private OrarioLavoroDao orarioLavoroDao;
+
     public Navigazione(PersonaleDao personaleDao, RuoloDao ruoloDao) {
         this.personaleDao = personaleDao;
         this.ruoloDao = ruoloDao;
@@ -113,21 +116,19 @@ public class Navigazione {
             return "redirect:/area_utente";
         }
         model.addAttribute("personale", new Personale());
+        model.addAttribute("ruoli", ruoloDao.findAll());
         return "area_amministratore";
     }
 
     @PostMapping("/areaAmministratore")
     public String processaFormAmministratore(@Valid @ModelAttribute("personale") Personale personale, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("ruoli", ruoloDao.findAll());
             return "area_amministratore";
         }
-
+        personaleDao.save(personale);
         return "redirect:/successo";
     }
-
-
-    @Autowired
-    private OrarioLavoroDao orarioLavoroDao;
 
     @GetMapping("/area_utente")
     public String getOrariLavorativi(Model model, @RequestParam Long personaleId) {
